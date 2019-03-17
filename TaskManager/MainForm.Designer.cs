@@ -30,20 +30,19 @@
         {
             this.monthCalendarChouseDate = new System.Windows.Forms.MonthCalendar();
             this.buttonAddTask = new System.Windows.Forms.Button();
-            this.comboBoxSaveOption = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.dataGridViewTasks = new System.Windows.Forms.DataGridView();
+            this.lineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTasks)).BeginInit();
             this.SuspendLayout();
             // 
             // monthCalendarChouseDate
             // 
-            this.monthCalendarChouseDate.Location = new System.Drawing.Point(635, 162);
+            this.monthCalendarChouseDate.Location = new System.Drawing.Point(757, 92);
             this.monthCalendarChouseDate.MaxSelectionCount = 1;
             this.monthCalendarChouseDate.Name = "monthCalendarChouseDate";
             this.monthCalendarChouseDate.TabIndex = 1;
@@ -51,7 +50,7 @@
             // 
             // buttonAddTask
             // 
-            this.buttonAddTask.Location = new System.Drawing.Point(635, 120);
+            this.buttonAddTask.Location = new System.Drawing.Point(757, 12);
             this.buttonAddTask.Name = "buttonAddTask";
             this.buttonAddTask.Size = new System.Drawing.Size(192, 30);
             this.buttonAddTask.TabIndex = 2;
@@ -59,86 +58,84 @@
             this.buttonAddTask.UseVisualStyleBackColor = true;
             this.buttonAddTask.Click += new System.EventHandler(this.buttonAddTask_Click);
             // 
-            // comboBoxSaveOption
-            // 
-            this.comboBoxSaveOption.FormattingEnabled = true;
-            this.comboBoxSaveOption.Items.AddRange(new object[] {
-            "Текстовый файл",
-            "XML",
-            "База данных"});
-            this.comboBoxSaveOption.Location = new System.Drawing.Point(635, 56);
-            this.comboBoxSaveOption.Name = "comboBoxSaveOption";
-            this.comboBoxSaveOption.Size = new System.Drawing.Size(192, 24);
-            this.comboBoxSaveOption.TabIndex = 3;
-            // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(635, 86);
+            this.buttonSave.Location = new System.Drawing.Point(757, 48);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(192, 28);
+            this.buttonSave.Size = new System.Drawing.Size(192, 30);
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // label1
+            // dataGridViewTasks
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(633, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 17);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Выберите способ хранения:";
+            this.dataGridViewTasks.AllowUserToAddRows = false;
+            this.dataGridViewTasks.AllowUserToDeleteRows = false;
+            this.dataGridViewTasks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridViewTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.lineName,
+            this.Date,
+            this.Category,
+            this.Description,
+            this.ActivityStatus});
+            this.dataGridViewTasks.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dataGridViewTasks.Location = new System.Drawing.Point(12, 13);
+            this.dataGridViewTasks.Name = "dataGridViewTasks";
+            this.dataGridViewTasks.ReadOnly = true;
+            this.dataGridViewTasks.RowTemplate.Height = 24;
+            this.dataGridViewTasks.Size = new System.Drawing.Size(733, 284);
+            this.dataGridViewTasks.TabIndex = 6;
+            this.dataGridViewTasks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseDoubleClick);
             // 
-            // dataGridView1
+            // lineName
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 59);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(611, 143);
-            this.dataGridView1.TabIndex = 6;
+            this.lineName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.lineName.FillWeight = 2F;
+            this.lineName.HeaderText = "Название";
+            this.lineName.Name = "lineName";
+            this.lineName.ReadOnly = true;
             // 
-            // dataGridView2
+            // Date
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(12, 225);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(611, 143);
-            this.dataGridView2.TabIndex = 7;
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Date.FillWeight = 2F;
+            this.Date.HeaderText = "Дата";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
-            // label2
+            // Category
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 205);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(156, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Выполненные задачи:";
+            this.Category.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Category.FillWeight = 2F;
+            this.Category.HeaderText = "Категория";
+            this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
             // 
-            // label3
+            // Description
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 17);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Активные задачи:";
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.FillWeight = 4F;
+            this.Description.HeaderText = "Описание";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // ActivityStatus
+            // 
+            this.ActivityStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ActivityStatus.FillWeight = 1F;
+            this.ActivityStatus.HeaderText = "Активно";
+            this.ActivityStatus.Name = "ActivityStatus";
+            this.ActivityStatus.ReadOnly = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 377);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(958, 311);
+            this.Controls.Add(this.dataGridViewTasks);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.comboBoxSaveOption);
             this.Controls.Add(this.buttonAddTask);
             this.Controls.Add(this.monthCalendarChouseDate);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -147,23 +144,21 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Менеджер задач";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTasks)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.MonthCalendar monthCalendarChouseDate;
         private System.Windows.Forms.Button buttonAddTask;
-        private System.Windows.Forms.ComboBox comboBoxSaveOption;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView dataGridViewTasks;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lineName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ActivityStatus;
     }
 }
 

@@ -1,29 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskManager
 {
     public class Task
     {
-        public Task() { }
-
-        public Task(String name, DateTime date, bool activityStatus, string Category, string Description)
+        public Task()
         {
-            this.Name = name;
-            this.Date = date;
-            this.ActivityStatus = activityStatus;
-            this.Category = Category;
-            this.Description = Description;
+            this.Id = -1;
+            this.IsActive = true;
         }
+
+        public Task(DateTime date) : this()
+        {
+            this.Date = date;
+        }
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public DateTime Date { get; set; }
 
-        public bool ActivityStatus { get; set; }
+        public bool IsActive { get; set; }
 
         public string Category { get; set; }
 

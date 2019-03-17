@@ -1,58 +1,36 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace TaskManager
 {
     public partial class AuthorizationForm : Form
     {
-        public AuthorizationForm()
+        private SqlConnection _connection;
+
+        public AuthorizationForm(SqlConnection connection)
         {
             InitializeComponent();
-        }
 
-        public string SelectedNickname
-        {
-            get
-            {
-                return textBoxNickname.Text;
-            }
-        }
-
-        private void buttonAdd_Click(object sender, EventArgs e)
-        {
-            if (textBoxNickname.Text.Length == 0)
-            {
-                MessageBox.Show("Вы не ввели свой никнейм.", "Внимание");
-                return;
-            }
-
-            if (Directory.Exists(string.Format("data/{0}", textBoxNickname.Text)))
-            {
-                MessageBox.Show("Такой пользователь уже существует.\nЕсли это Вы, то выберите опцию 'Войти' в окне авторизации.", "Неверное действие");
-            }            
-            else
-            {
-                Directory.CreateDirectory(string.Format("data/{0}", textBoxNickname.Text));
-                this.Hide();
-            }
+            _connection = connection;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (textBoxNickname.Text.Length == 0)
+            if (textBoxUsername.Text.Length == 0 || textBoxPassword.Text.Length == 0)
             {
-                MessageBox.Show("Вы не ввели свой никнейм.", "Внимание");
+                MessageBox.Show("Вы не ввели свой никнейм или пароль.", "Внимание");
                 return;
             }
 
-            if (Directory.Exists(string.Format("data/{0}", textBoxNickname.Text)))
+            if(checkUser(textBoxUsername.Text, textBoxPassword.Text))
             {
                 this.Hide();
             }
             else
             {
-                MessageBox.Show("Такого пользователя не существует.\nВыберите опцию 'Добавить' в окне авторизации.", "Неверное действие");
+                MessageBox.Show("Неправильный логин или пароль.", "Внимание");
             }
         }
 
@@ -61,6 +39,38 @@ namespace TaskManager
             if (e.CloseReason != CloseReason.UserClosing) return;
 
             Environment.Exit(0);
+        }
+
+        private bool checkUser(string username, string password)
+        {
+            bool result = false;
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = @"SELECT
+                                    *
+                                FROM
+                                    Users users
+                                WHERE
+                                    Username = '" + username + @"'
+                                    AND
+                                    Password = '" + password + "'";
+
+            _connection.Open();
+
+            using(SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetString(1) == username && reader.GetString(2) == password)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            _connection.Close();
+
+            return result;
         }
     }
 }
