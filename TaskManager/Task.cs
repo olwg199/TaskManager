@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace TaskManager
+namespace TaskManager.entity
 {
     public class Task
     {
         public Task()
         {
-            this.Id = -1;
-            this.IsActive = true;
+            Id = Guid.NewGuid();
+            IsActive = true;
         }
 
         public Task(DateTime date) : this()
@@ -15,7 +15,12 @@ namespace TaskManager
             this.Date = date;
         }
 
-        public int Id { get; set; }
+        public Task(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; }
 
         public string Name { get; set; }
 
@@ -23,7 +28,7 @@ namespace TaskManager
 
         public bool IsActive { get; set; }
 
-        public string Category { get; set; }
+        public int Category { get; set; }
 
         public string Description { get; set; }
     }

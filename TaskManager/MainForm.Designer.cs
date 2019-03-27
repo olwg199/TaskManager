@@ -31,17 +31,18 @@
             this.monthCalendarChouseDate = new System.Windows.Forms.MonthCalendar();
             this.buttonAddTask = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.dataGridViewTasks = new System.Windows.Forms.DataGridView();
+            this._dataGridViewTasks = new System.Windows.Forms.DataGridView();
             this.lineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActivityStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTasks)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataGridViewTasks)).BeginInit();
             this.SuspendLayout();
             // 
             // monthCalendarChouseDate
             // 
+            this.monthCalendarChouseDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.monthCalendarChouseDate.Location = new System.Drawing.Point(757, 92);
             this.monthCalendarChouseDate.MaxSelectionCount = 1;
             this.monthCalendarChouseDate.Name = "monthCalendarChouseDate";
@@ -50,6 +51,7 @@
             // 
             // buttonAddTask
             // 
+            this.buttonAddTask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddTask.Location = new System.Drawing.Point(757, 12);
             this.buttonAddTask.Name = "buttonAddTask";
             this.buttonAddTask.Size = new System.Drawing.Size(192, 30);
@@ -60,6 +62,7 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.Location = new System.Drawing.Point(757, 48);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(192, 30);
@@ -68,26 +71,29 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // dataGridViewTasks
+            // _dataGridViewTasks
             // 
-            this.dataGridViewTasks.AllowUserToAddRows = false;
-            this.dataGridViewTasks.AllowUserToDeleteRows = false;
-            this.dataGridViewTasks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dataGridViewTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._dataGridViewTasks.AllowUserToAddRows = false;
+            this._dataGridViewTasks.AllowUserToDeleteRows = false;
+            this._dataGridViewTasks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._dataGridViewTasks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this._dataGridViewTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dataGridViewTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.lineName,
             this.Date,
             this.Category,
             this.Description,
             this.ActivityStatus});
-            this.dataGridViewTasks.Cursor = System.Windows.Forms.Cursors.Default;
-            this.dataGridViewTasks.Location = new System.Drawing.Point(12, 13);
-            this.dataGridViewTasks.Name = "dataGridViewTasks";
-            this.dataGridViewTasks.ReadOnly = true;
-            this.dataGridViewTasks.RowTemplate.Height = 24;
-            this.dataGridViewTasks.Size = new System.Drawing.Size(733, 284);
-            this.dataGridViewTasks.TabIndex = 6;
-            this.dataGridViewTasks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseDoubleClick);
+            this._dataGridViewTasks.Cursor = System.Windows.Forms.Cursors.Default;
+            this._dataGridViewTasks.Location = new System.Drawing.Point(12, 13);
+            this._dataGridViewTasks.Name = "_dataGridViewTasks";
+            this._dataGridViewTasks.ReadOnly = true;
+            this._dataGridViewTasks.RowTemplate.Height = 24;
+            this._dataGridViewTasks.Size = new System.Drawing.Size(733, 284);
+            this._dataGridViewTasks.TabIndex = 6;
+            this._dataGridViewTasks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseDoubleClick);
             // 
             // lineName
             // 
@@ -112,6 +118,7 @@
             this.Category.HeaderText = "Категория";
             this.Category.Name = "Category";
             this.Category.ReadOnly = true;
+            this.Category.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Description
             // 
@@ -134,7 +141,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 311);
-            this.Controls.Add(this.dataGridViewTasks);
+            this.Controls.Add(this._dataGridViewTasks);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonAddTask);
             this.Controls.Add(this.monthCalendarChouseDate);
@@ -144,7 +151,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Менеджер задач";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTasks)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataGridViewTasks)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -153,7 +160,7 @@
         private System.Windows.Forms.MonthCalendar monthCalendarChouseDate;
         private System.Windows.Forms.Button buttonAddTask;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.DataGridView dataGridViewTasks;
+        private System.Windows.Forms.DataGridView _dataGridViewTasks;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;

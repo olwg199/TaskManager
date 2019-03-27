@@ -34,6 +34,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,11 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewTaskForm.cs">
+    <Compile Include="ECategory.cs" />
+    <Compile Include="EnumHelper.cs" />
+    <Compile Include="TaskRepository.cs" />
+    <Compile Include="TaskDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ViewTaskForm.Designer.cs">
-      <DependentUpon>ViewTaskForm.cs</DependentUpon>
+    <Compile Include="TaskDetailsForm.Designer.cs">
+      <DependentUpon>TaskDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -58,24 +63,15 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AuthorizationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AuthorizationForm.Designer.cs">
-      <DependentUpon>AuthorizationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskManager.cs" />
-    <EmbeddedResource Include="ViewTaskForm.resx">
-      <DependentUpon>ViewTaskForm.cs</DependentUpon>
+    <EmbeddedResource Include="TaskDetailsForm.resx">
+      <DependentUpon>TaskDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AuthorizationForm.resx">
-      <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,6 +1,6 @@
 ﻿namespace TaskManager
 {
-    partial class ViewTaskForm
+    partial class TaskDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,16 +34,16 @@
             this.Desciption = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.dateTimePickerTimeOfTask = new System.Windows.Forms.DateTimePicker();
-            this.textBoxCategory = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.checkBoxActivityStatus = new System.Windows.Forms.CheckBox();
             this.buttonSaveTask = new System.Windows.Forms.Button();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(20, 13);
+            this.labelName.Location = new System.Drawing.Point(20, 15);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(76, 17);
             this.labelName.TabIndex = 0;
@@ -52,7 +52,7 @@
             // Date
             // 
             this.Date.AutoSize = true;
-            this.Date.Location = new System.Drawing.Point(50, 41);
+            this.Date.Location = new System.Drawing.Point(50, 42);
             this.Date.Name = "Date";
             this.Date.Size = new System.Drawing.Size(46, 17);
             this.Date.TabIndex = 1;
@@ -61,7 +61,7 @@
             // Category
             // 
             this.Category.AutoSize = true;
-            this.Category.Location = new System.Drawing.Point(15, 69);
+            this.Category.Location = new System.Drawing.Point(15, 70);
             this.Category.Name = "Category";
             this.Category.Size = new System.Drawing.Size(81, 17);
             this.Category.TabIndex = 2;
@@ -78,7 +78,7 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(102, 13);
+            this.textBoxName.Location = new System.Drawing.Point(102, 14);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(214, 22);
             this.textBoxName.TabIndex = 5;
@@ -91,16 +91,9 @@
             this.dateTimePickerTimeOfTask.Size = new System.Drawing.Size(214, 22);
             this.dateTimePickerTimeOfTask.TabIndex = 6;
             // 
-            // textBoxCategory
-            // 
-            this.textBoxCategory.Location = new System.Drawing.Point(102, 69);
-            this.textBoxCategory.Name = "textBoxCategory";
-            this.textBoxCategory.Size = new System.Drawing.Size(214, 22);
-            this.textBoxCategory.TabIndex = 7;
-            // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Location = new System.Drawing.Point(102, 96);
+            this.textBoxDescription.Location = new System.Drawing.Point(102, 97);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(214, 246);
@@ -126,15 +119,31 @@
             this.buttonSaveTask.UseVisualStyleBackColor = true;
             this.buttonSaveTask.Click += new System.EventHandler(this.buttonSaveTask_Click);
             // 
-            // ViewTaskForm
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Items.AddRange(new object[] {
+            "Разное",
+            "Домашняя работа",
+            "Семья",
+            "Покупки",
+            "Развлечения",
+            "Друзья",
+            "Здоровье"});
+            this.comboBoxCategory.Location = new System.Drawing.Point(102, 68);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(214, 24);
+            this.comboBoxCategory.TabIndex = 11;
+            // 
+            // TaskDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 383);
+            this.Controls.Add(this.comboBoxCategory);
             this.Controls.Add(this.buttonSaveTask);
             this.Controls.Add(this.checkBoxActivityStatus);
             this.Controls.Add(this.textBoxDescription);
-            this.Controls.Add(this.textBoxCategory);
             this.Controls.Add(this.dateTimePickerTimeOfTask);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.Desciption);
@@ -142,7 +151,7 @@
             this.Controls.Add(this.Date);
             this.Controls.Add(this.labelName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "ViewTaskForm";
+            this.Name = "TaskDetailsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Задача";
             this.ResumeLayout(false);
@@ -158,9 +167,9 @@
         private System.Windows.Forms.Label Desciption;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.DateTimePicker dateTimePickerTimeOfTask;
-        private System.Windows.Forms.TextBox textBoxCategory;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxActivityStatus;
         private System.Windows.Forms.Button buttonSaveTask;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
     }
 }
