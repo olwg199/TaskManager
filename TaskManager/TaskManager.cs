@@ -11,6 +11,7 @@ namespace TaskManager
 
         public TaskManager()
         {
+            //todo: TaskRepository should not be static and should be injected into constructor of TaskManager 
             _tasks = TaskRepository.Get();
         }
 
@@ -28,12 +29,12 @@ namespace TaskManager
         {
             return _tasks.Find(t => t.Id == Guid.Parse(id));
         }
-
+//todo: 'Task' is excess
         public void AddTask(Task task)
         {
             _tasks.Add(task);
         }
-
+//todo: 'Task' is excess
         public void EditTask(Task task)
         {
             Task currentTask = _tasks.Find(t => t.Id == task.Id);
@@ -42,6 +43,7 @@ namespace TaskManager
             _tasks[currentTaskIndex] = task;
         }   
         
+        //todo: 'Tasks' is excess
         public void SaveTasks()
         {
             TaskRepository.Save(_tasks);
