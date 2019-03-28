@@ -28,7 +28,7 @@ namespace TaskManager.entity
 
         public bool IsActive { get; set; }
 
-        public int Category { get; set; }
+        public ECategory Category { get; set; }
 
         public string Description { get; set; }
     }

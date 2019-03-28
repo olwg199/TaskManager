@@ -34,7 +34,7 @@ namespace TaskManager
                     task.Name = reader.GetString(1);
                     task.Date = reader.GetDateTime(2);
                     task.IsActive = reader.GetBoolean(3);
-                    task.Category = reader.GetInt32(4);
+                    task.Category = (ECategory)reader.GetInt32(4);
                     task.Description = reader.IsDBNull(5) ? "" : reader.GetString(5);
 
                     taskList.Add(task);
@@ -83,7 +83,7 @@ namespace TaskManager
                                                         task.Name,
                                                         task.Date.ToString("yyyy-MM-dd"),
                                                         task.IsActive,
-                                                        1,
+                                                        (int)task.Category,
                                                         task.Description,
                                                         task.Id.ToString());
 
@@ -99,7 +99,7 @@ namespace TaskManager
                                                         task.Name,
                                                         task.Date.ToString("yyyy-MM-dd"),
                                                         task.IsActive,
-                                                        1,
+                                                        (int)task.Category,
                                                         task.Description);
 
                     cmd.ExecuteNonQuery();

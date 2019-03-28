@@ -24,6 +24,11 @@ namespace TaskManager
             return _tasks.FindAll(t => t.Date == date);
         }
 
+        public Task GetById(string id)
+        {
+            return _tasks.Find(t => t.Id == Guid.Parse(id));
+        }
+
         public void AddTask(Task task)
         {
             _tasks.Add(task);

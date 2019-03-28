@@ -32,6 +32,7 @@
             this.buttonAddTask = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this._dataGridViewTasks = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +82,7 @@
             this._dataGridViewTasks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this._dataGridViewTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dataGridViewTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
             this.lineName,
             this.Date,
             this.Category,
@@ -94,6 +96,13 @@
             this._dataGridViewTasks.Size = new System.Drawing.Size(733, 284);
             this._dataGridViewTasks.TabIndex = 6;
             this._dataGridViewTasks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseDoubleClick);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
             // 
             // lineName
             // 
@@ -161,6 +170,7 @@
         private System.Windows.Forms.Button buttonAddTask;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.DataGridView _dataGridViewTasks;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;

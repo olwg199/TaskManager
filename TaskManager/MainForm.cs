@@ -14,18 +14,14 @@ namespace TaskManager
         public MainForm()
         {
             InitializeComponent();
-
-            //object[] category = typeof(ECategory).GetField(ECategory.Others.ToString()).GetCustomAttributes(typeof(Category), false);
-
-            //MessageBox.Show(category[category.Length - 1].ToString());
             
             _taskManager = new TaskManager();
         }
 
         private void buttonAddTask_Click(object sender, EventArgs e)
         {
-            _taskDetailsForm = new TaskDetailsForm(_taskManager.AddTask,
-                new Task(monthCalendarChouseDate.SelectionRange.Start));
+            _taskDetailsForm = new TaskDetailsForm(new Task(monthCalendarChouseDate.SelectionRange.Start),
+                _taskManager.AddTask);
             _taskDetailsForm.ShowDialog();
 
             _taskManager.SaveTasks();
@@ -41,12 +37,12 @@ namespace TaskManager
         private void MainForm_Load(object sender, EventArgs e)
         {
             UpdateTaskListView(_taskManager.GetByDate(monthCalendarChouseDate.SelectionStart));
-        }
+        } 
 
         private void dataGridViewTasks_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var taskViewForm = new TaskDetailsForm(_taskManager.EditTask,
-                _taskManager.Get()[e.RowIndex]);
+            var taskViewForm = new TaskDetailsForm(_taskManager.GetById(_dataGridViewTasks.Rows[e.RowIndex].Cells[0].Value.ToString()),
+                _taskManager.EditTask);
             taskViewForm.ShowDialog();
 
             _taskManager.SaveTasks();
@@ -64,9 +60,10 @@ namespace TaskManager
 
             foreach (Task ts in tasks)
             {
-                _dataGridViewTasks.Rows.Add(ts.Name,
+                _dataGridViewTasks.Rows.Add(ts.Id,
+                    ts.Name,
                     ts.Date.ToShortDateString(),
-                    ts.Category,
+                    EnumHelper<ECategory>.GetDisplayValue(ts.Category),
                     ts.Description,
                     ts.IsActive);
             }

@@ -11,7 +11,7 @@ namespace TaskManager
         private readonly Task _currentTask;
         private readonly Action<Task> _updateTaskListDelegate;
 
-        public TaskDetailsForm(Action<Task> updateTaskListDelegate, Task task)
+        public TaskDetailsForm(Task task, Action<Task> updateTaskListDelegate = null)
         {
             InitializeComponent();
 
@@ -22,7 +22,7 @@ namespace TaskManager
 
             textBoxName.Text = task.Name;
             dateTimePickerTimeOfTask.Value = task.Date;
-            comboBoxCategory.TabIndex = task.Category;
+            comboBoxCategory.TabIndex = (int)task.Category;
             textBoxDescription.Text = task.Description;
             checkBoxActivityStatus.Checked = task.IsActive;
         }
@@ -32,10 +32,13 @@ namespace TaskManager
             _currentTask.Date = dateTimePickerTimeOfTask.Value;
             _currentTask.IsActive = checkBoxActivityStatus.Checked;
             _currentTask.Name = textBoxName.Text;
-            _currentTask.Category = comboBoxCategory.TabIndex;
+            _currentTask.Category = (ECategory)comboBoxCategory.TabIndex;
             _currentTask.Description = textBoxDescription.Text;
 
-            _updateTaskListDelegate(_currentTask);
+            if(_updateTaskListDelegate != null)
+            {
+                _updateTaskListDelegate(_currentTask);
+            }
 
             this.Hide();
         }
