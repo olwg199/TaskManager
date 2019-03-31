@@ -15,22 +15,22 @@ namespace TaskManager
         {
             InitializeComponent();
             
-            _taskManager = new TaskManager();
+            _taskManager = new TaskManager(new TaskRepository());
         }
 
         private void buttonAddTask_Click(object sender, EventArgs e)
         {
             _taskDetailsForm = new TaskDetailsForm(new Task(monthCalendarChouseDate.SelectionRange.Start),
-                _taskManager.AddTask);
+                _taskManager.Add);
             _taskDetailsForm.ShowDialog();
 
-            _taskManager.SaveTasks();
+            _taskManager.Save();
             UpdateTaskListView(_taskManager.GetByDate(monthCalendarChouseDate.SelectionStart));
         }
 
         private void monthCalendarChouseDate_DateChanged(object sender, DateRangeEventArgs e)
         {
-            _taskManager.SaveTasks();
+            _taskManager.Save();
             UpdateTaskListView(_taskManager.GetByDate(monthCalendarChouseDate.SelectionStart));            
         }
 
@@ -42,16 +42,16 @@ namespace TaskManager
         private void dataGridViewTasks_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var taskViewForm = new TaskDetailsForm(_taskManager.GetById(_dataGridViewTasks.Rows[e.RowIndex].Cells[0].Value.ToString()),
-                _taskManager.EditTask);
+                _taskManager.Edit);
             taskViewForm.ShowDialog();
 
-            _taskManager.SaveTasks();
+            _taskManager.Save();
             UpdateTaskListView(_taskManager.GetByDate(monthCalendarChouseDate.SelectionStart));
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            _taskManager.SaveTasks();
+            _taskManager.Save();
         }
 
         private void UpdateTaskListView(List<Task> tasks)

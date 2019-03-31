@@ -11,9 +11,9 @@ namespace TaskManager
         private static readonly SqlConnection _connection =
             new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
 
-        private TaskRepository() { }
+        public TaskRepository() { }
 
-        public static List<Task> Get()
+        public List<Task> Get()
         {
             var taskList = new List<Task>();
             SqlCommand cmd = _connection.CreateCommand();
@@ -46,7 +46,7 @@ namespace TaskManager
             return taskList;
         }
 
-        public static void Save(List<Task> tasks)
+        public void Save(List<Task> tasks)
         {
             SqlCommand cmd = _connection.CreateCommand();
             bool flagExistence;

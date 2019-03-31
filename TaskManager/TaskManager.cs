@@ -7,11 +7,13 @@ namespace TaskManager
 {
     public class TaskManager
     {
+        private TaskRepository _repository;
         private List<Task> _tasks;
 
-        public TaskManager()
+        public TaskManager(TaskRepository repository)
         {
-            _tasks = TaskRepository.Get();
+            _repository = repository;
+            _tasks = _repository.Get();
         }
 
         public List<Task> Get()
@@ -29,12 +31,12 @@ namespace TaskManager
             return _tasks.Find(t => t.Id == Guid.Parse(id));
         }
 
-        public void AddTask(Task task)
+        public void Add(Task task)
         {
             _tasks.Add(task);
         }
 
-        public void EditTask(Task task)
+        public void Edit(Task task)
         {
             Task currentTask = _tasks.Find(t => t.Id == task.Id);
             int currentTaskIndex = _tasks.IndexOf(currentTask);
@@ -42,9 +44,9 @@ namespace TaskManager
             _tasks[currentTaskIndex] = task;
         }   
         
-        public void SaveTasks()
+        public void Save()
         {
-            TaskRepository.Save(_tasks);
+            _repository.Save(_tasks);
         }
     }
 }
