@@ -55,6 +55,8 @@ namespace TaskManager.Repositories
 
             foreach (Task task in tasks)
             {
+            //todo: place into single line with string interpolation syntax
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated
                 _cmd.CommandText = string.Format(@"SELECT 
                                                     * 
                                                 FROM 
@@ -69,9 +71,11 @@ namespace TaskManager.Repositories
                 {
                     flagExistence = reader.Read();
                 }
-
+//todo: rename to 'exist'
                 if (flagExistence)//If the recrod exists
                 {
+                            //todo: use string interpolation syntax
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated
                     _cmd.CommandText = String.Format(@"UPDATE 
                                                         Tasks 
                                                     SET 
@@ -93,6 +97,8 @@ namespace TaskManager.Repositories
                 }
                 else//If the record does not exist
                 {
+                            //todo: use string interpolation syntax
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated
                     _cmd.CommandText = String.Format(@"INSERT INTO 
                                                         Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
                                                     VALUES 
@@ -126,7 +132,7 @@ namespace TaskManager.Repositories
             _connection.Close();
         }
     }
-
+//todo: replace it with named constants in static class
     enum DBTableIndex
     {
         Id,
