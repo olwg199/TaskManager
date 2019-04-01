@@ -17,7 +17,7 @@ namespace TaskManager
         {
             InitializeComponent();
 
-            _taskManager = new TaskManager(new TaskRepository());
+            _taskManager = new TaskManager(new TaskDBRepository());
         }
 
         private void buttonAddTask_Click(object sender, EventArgs e)

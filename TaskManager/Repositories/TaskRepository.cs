@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace TaskManager.Repositories
 {
-    public class TaskRepository : IRepository
+    public class TaskDBRepository : IRepository
     {
         private readonly SqlConnection _connection;            
         private SqlCommand _cmd;
 
-        public TaskRepository() {
+        public TaskDBRepository() {
             _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
             _cmd = _connection.CreateCommand();
         }
@@ -31,13 +31,13 @@ namespace TaskManager.Repositories
             {
                 while (reader.Read())
                 {
-                    Task task = new Task(reader.GetGuid(0));
+                    Task task = new Task(reader.GetGuid((int)DBTableIndex.Id));
                     
-                    task.Name = reader.GetString(1);
-                    task.Date = reader.GetDateTime(2);
-                    task.IsActive = reader.GetBoolean(3);
-                    task.Category = (ECategory)reader.GetInt32(4);
-                    task.Description = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                    task.Name = reader.GetString((int)DBTableIndex.Name);
+                    task.Date = reader.GetDateTime((int)DBTableIndex.Date);
+                    task.IsActive = reader.GetBoolean((int)DBTableIndex.Activ);
+                    task.Category = (ECategory)reader.GetInt32((int)DBTableIndex.Category);
+                    task.Description = reader.IsDBNull((int)DBTableIndex.Description) ? "" : reader.GetString((int)DBTableIndex.Description);
 
                     taskList.Add(task);
                 }
@@ -125,5 +125,15 @@ namespace TaskManager.Repositories
             
             _connection.Close();
         }
+    }
+
+    enum DBTableIndex
+    {
+        Id,
+        Name,
+        Date,
+        Activ,
+        Category,
+        Description
     }
 }
