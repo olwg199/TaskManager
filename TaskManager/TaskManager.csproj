@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="ECategory.cs" />
     <Compile Include="EnumHelper.cs" />
-    <Compile Include="TaskRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="TaskDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>

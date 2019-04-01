@@ -30,7 +30,7 @@
         {
             this.monthCalendarChouseDate = new System.Windows.Forms.MonthCalendar();
             this.buttonAddTask = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonDeleteTask = new System.Windows.Forms.Button();
             this._dataGridViewTasks = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,16 +61,16 @@
             this.buttonAddTask.UseVisualStyleBackColor = true;
             this.buttonAddTask.Click += new System.EventHandler(this.buttonAddTask_Click);
             // 
-            // buttonSave
+            // buttonDeleteTask
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(757, 48);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(192, 30);
-            this.buttonSave.TabIndex = 4;
-            this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonDeleteTask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDeleteTask.Location = new System.Drawing.Point(757, 48);
+            this.buttonDeleteTask.Name = "buttonDeleteTask";
+            this.buttonDeleteTask.Size = new System.Drawing.Size(192, 30);
+            this.buttonDeleteTask.TabIndex = 4;
+            this.buttonDeleteTask.Text = "Удалить задачу";
+            this.buttonDeleteTask.UseVisualStyleBackColor = true;
+            this.buttonDeleteTask.Click += new System.EventHandler(this.buttonDeleteTask_Click);
             // 
             // _dataGridViewTasks
             // 
@@ -95,6 +95,7 @@
             this._dataGridViewTasks.RowTemplate.Height = 24;
             this._dataGridViewTasks.Size = new System.Drawing.Size(733, 284);
             this._dataGridViewTasks.TabIndex = 6;
+            this._dataGridViewTasks.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseClick);
             this._dataGridViewTasks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTasks_CellMouseDoubleClick);
             // 
             // Id
@@ -151,7 +152,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 311);
             this.Controls.Add(this._dataGridViewTasks);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.buttonDeleteTask);
             this.Controls.Add(this.buttonAddTask);
             this.Controls.Add(this.monthCalendarChouseDate);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -159,6 +160,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Менеджер задач";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this._dataGridViewTasks)).EndInit();
             this.ResumeLayout(false);
@@ -168,7 +170,7 @@
         #endregion
         private System.Windows.Forms.MonthCalendar monthCalendarChouseDate;
         private System.Windows.Forms.Button buttonAddTask;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonDeleteTask;
         private System.Windows.Forms.DataGridView _dataGridViewTasks;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineName;

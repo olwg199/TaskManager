@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using TaskManager.entity;
+using TaskManager.Repositories;
 
 namespace TaskManager
 {
-    public class TaskManager
+    class TaskManager
     {
-        private TaskRepository _repository;
+        private IRepository _repository;
         private List<Task> _tasks;
 
-        public TaskManager(TaskRepository repository)
+        public TaskManager(IRepository repository)
         {
             _repository = repository;
             _tasks = _repository.Get();
@@ -47,6 +46,13 @@ namespace TaskManager
         public void Save()
         {
             _repository.Save(_tasks);
+        }
+
+        internal void Delete(Task task)
+        {
+            _repository.Delete(task);
+
+            _tasks.Remove(task);
         }
     }
 }

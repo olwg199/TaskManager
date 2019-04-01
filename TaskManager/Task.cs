@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskManager.entity
+namespace TaskManager
 {
     public class Task
     {

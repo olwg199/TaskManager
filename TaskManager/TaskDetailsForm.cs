@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using TaskManager.entity;
 
 namespace TaskManager
 {
@@ -22,17 +21,23 @@ namespace TaskManager
 
             textBoxName.Text = task.Name;
             dateTimePickerTimeOfTask.Value = task.Date;
-            comboBoxCategory.TabIndex = (int)task.Category;
+            comboBoxCategory.SelectedIndex = (int)task.Category;
             textBoxDescription.Text = task.Description;
             checkBoxActivityStatus.Checked = task.IsActive;
         }
 
         private void buttonSaveTask_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxName.Text))
+            {
+                MessageBox.Show("Вы не ввели название задачи.", "Внимание");
+                return;
+            }
+
             _currentTask.Date = dateTimePickerTimeOfTask.Value;
             _currentTask.IsActive = checkBoxActivityStatus.Checked;
             _currentTask.Name = textBoxName.Text;
-            _currentTask.Category = (ECategory)comboBoxCategory.TabIndex;
+            _currentTask.Category = (ECategory)comboBoxCategory.SelectedIndex;
             _currentTask.Description = textBoxDescription.Text;
 
             if(_updateTaskListDelegate != null)

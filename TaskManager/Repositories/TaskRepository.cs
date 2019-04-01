@@ -2,30 +2,32 @@
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Generic;
-using TaskManager.entity;
 
-namespace TaskManager
+namespace TaskManager.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : IRepository
     {
-        private static readonly SqlConnection _connection =
-            new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
+        private readonly SqlConnection _connection;            
+        private SqlCommand _cmd;
 
-        public TaskRepository() { }
+        public TaskRepository() {
+            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
+            _cmd = _connection.CreateCommand();
+        }
 
         public List<Task> Get()
         {
             var taskList = new List<Task>();
-            SqlCommand cmd = _connection.CreateCommand();
+            _cmd = _connection.CreateCommand();
 
-            cmd.CommandText = @"SELECT
+            _cmd.CommandText = @"SELECT
                                     *
                                 FROM
                                     Tasks";
 
             _connection.Open();
 
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            using (SqlDataReader reader = _cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
@@ -48,12 +50,12 @@ namespace TaskManager
 
         public void Save(List<Task> tasks)
         {
-            SqlCommand cmd = _connection.CreateCommand();
+            _cmd = _connection.CreateCommand();
             bool flagExistence;
 
             foreach (Task task in tasks)
             {
-                cmd.CommandText = string.Format(@"SELECT 
+                _cmd.CommandText = string.Format(@"SELECT 
                                                     * 
                                                 FROM 
                                                     Tasks t 
@@ -63,14 +65,14 @@ namespace TaskManager
 
                 _connection.Open();
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = _cmd.ExecuteReader())
                 {
                     flagExistence = reader.Read();
                 }
 
                 if (flagExistence)//If the recrod exists
                 {
-                    cmd.CommandText = String.Format(@"UPDATE 
+                    _cmd.CommandText = String.Format(@"UPDATE 
                                                         Tasks 
                                                     SET 
                                                         Name = '{0}', 
@@ -87,11 +89,11 @@ namespace TaskManager
                                                         task.Description,
                                                         task.Id.ToString());
 
-                    cmd.ExecuteNonQuery();
+                    _cmd.ExecuteNonQuery();
                 }
                 else//If the record does not exist
                 {
-                    cmd.CommandText = String.Format(@"INSERT INTO 
+                    _cmd.CommandText = String.Format(@"INSERT INTO 
                                                         Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
                                                     VALUES 
                                                         ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
@@ -102,12 +104,26 @@ namespace TaskManager
                                                         (int)task.Category,
                                                         task.Description);
 
-                    cmd.ExecuteNonQuery();
+                    _cmd.ExecuteNonQuery();
                 }
 
                 _connection.Close();
             }
 
+        }
+
+        public void Delete(Task task)
+        {
+            _cmd.CommandText = $@"DELETE FROM 
+                                    Tasks
+                                WHERE
+                                    Tasks.Id = '{task.Id.ToString()}'";
+
+            _connection.Open();
+
+            _cmd.ExecuteNonQuery();
+            
+            _connection.Close();
         }
     }
 }
