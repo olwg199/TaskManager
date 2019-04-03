@@ -48,7 +48,7 @@ namespace TaskManager.Repositories
                                         Category = '{(int)task.Category}',
                                         Description = '{task.Description}'
                                     WHERE
-                                        Id = '{task.Id.ToString()}'";
+                                        Id = '{task.Id}'";
 
             _cmd.ExecuteNonQuery();
 
@@ -72,7 +72,7 @@ namespace TaskManager.Repositories
             _cmd.CommandText = $@"DELETE FROM 
                                     Tasks
                                 WHERE
-                                    Tasks.Id = '{task.Id.ToString()}'";
+                                    Tasks.Id = '{task.Id}'";
 
             _connection.Open();
 
@@ -100,7 +100,7 @@ namespace TaskManager.Repositories
                                 FROM
                                     Tasks
                                 WHERE
-                                    Tasks.Id = '{id.ToString()}'";
+                                    Tasks.Id = '{id}'";
 
             return ParseTasks().Find(t => t.Id == id);
         }
@@ -112,20 +112,20 @@ namespace TaskManager.Repositories
                                 FROM 
                                     Tasks t 
                                 WHERE 
-                                    t.id = '{task.Id.ToString()}'";
+                                    t.id = '{task.Id}'";
 
             _connection.Open();
 
-            bool flagExistence;
+            bool exist;
 
             using (SqlDataReader reader = _cmd.ExecuteReader())
             {
-                flagExistence = reader.Read();
+                exist = reader.Read();
             }
 
             _connection.Close();
 
-            if (flagExistence)//If the recrod exists
+            if (exist)//If the recrod exists
             {
                 Update(task);
             }
