@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TaskManager.Repositories
 {
-    public class TaskDBRepository : IRepository
+    public class TaskDBRepository : ITaskRepository
     {
         private readonly SqlConnection _connection;            
         private SqlCommand _cmd;
@@ -23,7 +23,7 @@ namespace TaskManager.Repositories
             _cmd.CommandText = $@"INSERT INTO 
                                     Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
                                 VALUES 
-                                    ('{task.Id.ToString()}', 
+                                    ('{task.Id}', 
                                     '{task.Name}', 
                                     '{task.Date.ToString("yyyy-MM-dd")}', 
                                     '{task.IsActive}', 
@@ -125,11 +125,11 @@ namespace TaskManager.Repositories
 
             _connection.Close();
 
-            if (exist)//If the recrod exists
+            if (exist)
             {
                 Update(task);
             }
-            else//If the record does not exist
+            else
             {
                 Add(task);
             }

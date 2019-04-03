@@ -7,7 +7,7 @@ namespace TaskManager
 {
     public partial class MainForm : Form
     {
-        private IRepository _repository;
+        private ITaskRepository _repository;
         private Task _currentTask;
 
         private TaskDetailsForm _taskDetailsForm;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TaskManager.Repositories
 {
-    interface IRepository
+    interface ITaskRepository
     {
         void Add(Task task);
 
