@@ -15,9 +15,7 @@ namespace TaskManager.Repositories
 
         Task GetById(Guid id);
 
-        void Edit(Task task);
-
-        void Save(List<Task> tasks);
+        void AddOrUpdate(Task task);
 
         void Delete(Task task);
     }

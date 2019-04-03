@@ -10,20 +10,25 @@ namespace TaskManager.Repositories
         private readonly SqlConnection _connection;            
         private SqlCommand _cmd;
 
+        public TaskDBRepository()
+        {
+            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
+            _cmd = _connection.CreateCommand();
+        }
+
         public void Add(Task task)
         {
             _connection.Open();
 
-            _cmd.CommandText = String.Format(@"INSERT INTO 
-                                                        Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
-                                                    VALUES 
-                                                        ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
-                                                    task.Id.ToString(),
-                                                    task.Name,
-                                                    task.Date.ToString("yyyy-MM-dd"),
-                                                    task.IsActive,
-                                                    (int)task.Category,
-                                                    task.Description);
+            _cmd.CommandText = $@"INSERT INTO 
+                                    Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
+                                VALUES 
+                                    ('{task.Id.ToString()}', 
+                                    '{task.Name}', 
+                                    '{task.Date.ToString("yyyy-MM-dd")}', 
+                                    '{task.IsActive}', 
+                                    '{(int)task.Category}', 
+                                    '{task.Description}')";
 
             _cmd.ExecuteNonQuery();
 
@@ -50,11 +55,6 @@ namespace TaskManager.Repositories
             _connection.Close();
         }
 
-        public TaskDBRepository() {
-            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
-            _cmd = _connection.CreateCommand();
-        }
-
         public List<Task> Get()
         {
             var taskList = new List<Task>();
@@ -65,14 +65,6 @@ namespace TaskManager.Repositories
                                     Tasks";
 
             return ParseTasks();
-        }
-
-        public void Save(List<Task> tasks)
-        {
-            foreach (Task task in tasks)
-            {
-                Edit(task);
-            }
         }
 
         public void Delete(Task task)
@@ -113,15 +105,14 @@ namespace TaskManager.Repositories
             return ParseTasks().Find(t => t.Id == id);
         }
 
-        public void Edit(Task task)
+        public void AddOrUpdate(Task task)
         {
-            _cmd.CommandText = string.Format(@"SELECT 
-                                                    * 
-                                                FROM 
-                                                    Tasks t 
-                                                WHERE 
-                                                    t.id = '{0}'",
-                                                    task.Id.ToString());
+            _cmd.CommandText = $@"SELECT 
+                                    * 
+                                FROM 
+                                    Tasks t 
+                                WHERE 
+                                    t.id = '{task.Id.ToString()}'";
 
             _connection.Open();
 
@@ -156,13 +147,13 @@ namespace TaskManager.Repositories
             {
                 while (reader.Read())
                 {
-                    Task task = new Task(reader.GetGuid((int)DBTableIndex.Id));
+                    Task task = new Task(reader.GetGuid(DBTableIndex.Id));
 
-                    task.Name = reader.GetString((int)DBTableIndex.Name);
-                    task.Date = reader.GetDateTime((int)DBTableIndex.Date);
-                    task.IsActive = reader.GetBoolean((int)DBTableIndex.Activ);
-                    task.Category = (ECategory)reader.GetInt32((int)DBTableIndex.Category);
-                    task.Description = reader.IsDBNull((int)DBTableIndex.Description) ? "" : reader.GetString((int)DBTableIndex.Description);
+                    task.Name = reader.GetString(DBTableIndex.Name);
+                    task.Date = reader.GetDateTime(DBTableIndex.Date);
+                    task.IsActive = reader.GetBoolean(DBTableIndex.IsActive);
+                    task.Category = (ECategory)reader.GetInt32(DBTableIndex.Category);
+                    task.Description = reader.IsDBNull(DBTableIndex.Description) ? "" : reader.GetString(DBTableIndex.Description);
 
                     taskList.Add(task);
                 }
@@ -174,13 +165,13 @@ namespace TaskManager.Repositories
         }
     }
 
-    enum DBTableIndex
+    static class DBTableIndex
     {
-        Id,
-        Name,
-        Date,
-        Activ,
-        Category,
-        Description
+        public const int Id = 0;
+        public const int Name = 1;
+        public const int Date = 2;
+        public const int IsActive = 3;
+        public const int Category = 4;
+        public const int Description = 5;
     }
 }
