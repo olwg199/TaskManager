@@ -7,20 +7,20 @@ namespace TaskManager.Repositories
 {
     public class TaskDBRepository : ITaskRepository
     {
-        private readonly SqlConnection _connection;            
-        private SqlCommand _cmd;
+        private readonly SqlConnection _connection;
 
         public TaskDBRepository()
         {
             _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString);
-            _cmd = _connection.CreateCommand();
         }
 
         public void Add(Task task)
         {
             _connection.Open();
 
-            _cmd.CommandText = $@"INSERT INTO 
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"INSERT INTO 
                                     Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
                                 VALUES 
                                     ('{task.Id}', 
@@ -30,7 +30,7 @@ namespace TaskManager.Repositories
                                     '{(int)task.Category}', 
                                     '{task.Description}')";
 
-            _cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
 
             _connection.Close();
         }
@@ -39,7 +39,9 @@ namespace TaskManager.Repositories
         {
             _connection.Open();
 
-            _cmd.CommandText = $@"UPDATE
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"UPDATE
                                         Tasks
                                     SET
                                         Name = '{task.Name}',
@@ -50,7 +52,7 @@ namespace TaskManager.Repositories
                                     WHERE
                                         Id = '{task.Id}'";
 
-            _cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
 
             _connection.Close();
         }
@@ -59,55 +61,66 @@ namespace TaskManager.Repositories
         {
             var taskList = new List<Task>();
 
-            _cmd.CommandText = @"SELECT
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = @"SELECT
                                     *
                                 FROM
                                     Tasks";
 
-            return ParseTasks();
+            return ParseTasks(cmd);
         }
 
         public void Delete(Task task)
         {
-            _cmd.CommandText = $@"DELETE FROM 
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"DELETE FROM 
                                     Tasks
                                 WHERE
                                     Tasks.Id = '{task.Id}'";
 
             _connection.Open();
 
-            _cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
             
             _connection.Close();
         }
 
         public List<Task> GetByDate(DateTime date)
         {
-            _cmd.CommandText = $@"SELECT
+
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"SELECT
                                     *
                                 FROM
                                     Tasks
                                 WHERE
                                     Tasks.Date = '{date.ToString("yyyy-MM-dd")}'";
 
-            return ParseTasks();
+            return ParseTasks(cmd);
         }
 
         public Task GetById(Guid id)
         {
-            _cmd.CommandText = $@"SELECT
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"SELECT
                                     *
                                 FROM
                                     Tasks
                                 WHERE
                                     Tasks.Id = '{id}'";
-
-            return ParseTasks().Find(t => t.Id == id);
+            
+            return ParseTasks(cmd).Find(t => t.Id == id);
         }
 
         public void AddOrUpdate(Task task)
         {
-            _cmd.CommandText = $@"SELECT 
+            SqlCommand cmd = _connection.CreateCommand();
+
+            cmd.CommandText = $@"SELECT 
                                     * 
                                 FROM 
                                     Tasks t 
@@ -118,7 +131,7 @@ namespace TaskManager.Repositories
 
             bool exist;
 
-            using (SqlDataReader reader = _cmd.ExecuteReader())
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 exist = reader.Read();
             }
@@ -137,13 +150,13 @@ namespace TaskManager.Repositories
             _connection.Close();
         }
 
-        private List<Task> ParseTasks()
+        private List<Task> ParseTasks(SqlCommand command)
         {
             var taskList = new List<Task>();
 
             _connection.Open();
 
-            using (SqlDataReader reader = _cmd.ExecuteReader())
+            using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
