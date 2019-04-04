@@ -13,7 +13,7 @@ namespace TaskManager
         {
             InitializeComponent();
 
-            comboBoxCategory.DataSource = /*Enum.GetNames(typeof(Categories));*/EnumHelper<Categories>.GetDisplayValues(typeof(Categories));
+            comboBoxCategory.DataSource = EnumHelper<Categories>.GetDisplayValues(typeof(Categories));
 
             this._updateTaskListDelegate = updateTaskListDelegate;
             _currentTask = task;

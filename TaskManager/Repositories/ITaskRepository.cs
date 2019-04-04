@@ -7,9 +7,7 @@ namespace TaskManager.Repositories
     interface ITaskRepository
     {
         void AddOrUpdate(Task task);
-
-        List<Task> Get();
-
+        
         List<Task> GetByDate(DateTime date);
 
         Task GetById(Guid id);

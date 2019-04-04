@@ -8,44 +8,9 @@ namespace TaskManager
 {
     public static class EnumHelper<T>
     {
-        public static IList<T> GetValues(Type value)
-        {
-            var enumValues = new List<T>();
-
-            foreach (FieldInfo fi in value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public))
-            {
-                enumValues.Add((T)Enum.Parse(value, fi.Name, false));
-            }
-            return enumValues;
-        }
-
-        public static T Parse(string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
-        }
-
-        public static IList<string> GetNames(Type value)
-        {
-            return value.GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
-        }
-
         public static IList<string> GetDisplayValues(Type value)
         {
             return GetNames(value).Select(obj => GetDisplayValue(Parse(obj))).ToList();
-        }
-
-        private static string lookupResource(Type resourceManagerProvider, string resourceKey)
-        {
-            foreach (PropertyInfo staticProperty in resourceManagerProvider.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
-            {
-                if (staticProperty.PropertyType == typeof(System.Resources.ResourceManager))
-                {
-                    System.Resources.ResourceManager resourceManager = (System.Resources.ResourceManager)staticProperty.GetValue(null, null);
-                    return resourceManager.GetString(resourceKey);
-                }
-            }
-
-            return resourceKey; // Fallback with the key name
         }
 
         public static string GetDisplayValue(T value)
@@ -60,6 +25,30 @@ namespace TaskManager
 
             if (descriptionAttributes == null) return string.Empty;
             return (descriptionAttributes.Length > 0) ? descriptionAttributes[0].Name : value.ToString();
+        }
+
+        private static T Parse(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
+
+        private static IList<string> GetNames(Type value)
+        {
+            return value.GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
+        }
+
+        private static string lookupResource(Type resourceManagerProvider, string resourceKey)
+        {
+            foreach (PropertyInfo staticProperty in resourceManagerProvider.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                if (staticProperty.PropertyType == typeof(System.Resources.ResourceManager))
+                {
+                    System.Resources.ResourceManager resourceManager = (System.Resources.ResourceManager)staticProperty.GetValue(null, null);
+                    return resourceManager.GetString(resourceKey);
+                }
+            }
+
+            return resourceKey; // Fallback with the key name
         }
     }
 }

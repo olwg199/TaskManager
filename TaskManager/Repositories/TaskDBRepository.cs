@@ -42,7 +42,7 @@ namespace TaskManager.Repositories
                                     SET
                                         Name = '{task.Name}',
                                         Date = '{task.Date.ToString("yyyy-MM-dd")}',
-                                        ActivityStatus = '{task.IsActive}',
+                                        IsActive = '{task.IsActive}',
                                         Category = '{(int)task.Category}',
                                         Description = '{task.Description}'
                                     WHERE
@@ -54,33 +54,19 @@ namespace TaskManager.Repositories
             else
             {
                 cmd.CommandText = $@"INSERT INTO 
-                                    Tasks(Id, Name, Date, ActivityStatus, Category, Description) 
-                                VALUES 
-                                    ('{task.Id}', 
-                                    '{task.Name}', 
-                                    '{task.Date.ToString("yyyy-MM-dd")}', 
-                                    '{task.IsActive}', 
-                                    '{(int)task.Category}', 
-                                    '{task.Description}')";
+                                        Tasks(Id, Name, Date, IsActive, Category, Description) 
+                                    VALUES 
+                                        ('{task.Id}', 
+                                        '{task.Name}', 
+                                        '{task.Date.ToString("yyyy-MM-dd")}', 
+                                        '{task.IsActive}', 
+                                        '{(int)task.Category}', 
+                                        '{task.Description}')";
 
                 cmd.ExecuteNonQuery();
             }
 
             _connection.Close();
-        }
-
-        public List<Task> Get()
-        {
-            var taskList = new List<Task>();
-
-            SqlCommand cmd = _connection.CreateCommand();
-
-            cmd.CommandText = @"SELECT
-                                    *
-                                FROM
-                                    Tasks";
-
-            return ParseTaskList(cmd);
         }
 
         public void Delete(Task task)
@@ -109,7 +95,8 @@ namespace TaskManager.Repositories
                                 FROM
                                     Tasks
                                 WHERE
-                                    Tasks.Date = '{date.ToString("yyyy-MM-dd")}'";
+                                    Tasks.Date = '{date.ToString("yyyy-MM-dd")}'
+                                ORDER BY IsActive DESC";
 
             return ParseTaskList(cmd);
         }
