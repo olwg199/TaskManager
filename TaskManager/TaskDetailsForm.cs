@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Windows.Forms;
+using TaskManager.Model;
 
 namespace TaskManager
 {
@@ -14,7 +13,7 @@ namespace TaskManager
         {
             InitializeComponent();
 
-            comboBoxCategory.DataSource = EnumHelper<ECategory>.GetDisplayValues(ECategory.Others);
+            comboBoxCategory.DataSource = /*Enum.GetNames(typeof(Categories));*/EnumHelper<Categories>.GetDisplayValues(typeof(Categories));
 
             this._updateTaskListDelegate = updateTaskListDelegate;
             _currentTask = task;
@@ -37,7 +36,7 @@ namespace TaskManager
             _currentTask.Date = dateTimePickerTimeOfTask.Value;
             _currentTask.IsActive = checkBoxActivityStatus.Checked;
             _currentTask.Name = textBoxName.Text;
-            _currentTask.Category = (ECategory)comboBoxCategory.SelectedIndex;
+            _currentTask.Category = (Categories)comboBoxCategory.SelectedIndex;
             _currentTask.Description = textBoxDescription.Text;
 
             if(_updateTaskListDelegate != null)

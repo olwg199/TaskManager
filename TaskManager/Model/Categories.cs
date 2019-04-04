@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager
+namespace TaskManager.Model
 {
-    public enum ECategory
+    public enum Categories
     {
         [Display(Name = "Разное")]
         Others,

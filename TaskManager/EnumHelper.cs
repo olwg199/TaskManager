@@ -8,13 +8,13 @@ namespace TaskManager
 {
     public static class EnumHelper<T>
     {
-        public static IList<T> GetValues(Enum value)
+        public static IList<T> GetValues(Type value)
         {
             var enumValues = new List<T>();
 
             foreach (FieldInfo fi in value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public))
             {
-                enumValues.Add((T)Enum.Parse(value.GetType(), fi.Name, false));
+                enumValues.Add((T)Enum.Parse(value, fi.Name, false));
             }
             return enumValues;
         }
@@ -24,12 +24,12 @@ namespace TaskManager
             return (T)Enum.Parse(typeof(T), value, true);
         }
 
-        public static IList<string> GetNames(Enum value)
+        public static IList<string> GetNames(Type value)
         {
-            return value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
+            return value.GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
         }
 
-        public static IList<string> GetDisplayValues(Enum value)
+        public static IList<string> GetDisplayValues(Type value)
         {
             return GetNames(value).Select(obj => GetDisplayValue(Parse(obj))).ToList();
         }

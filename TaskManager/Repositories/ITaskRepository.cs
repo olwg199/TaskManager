@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using TaskManager.Model;
 
 namespace TaskManager.Repositories
 {
     interface ITaskRepository
     {
-        void Add(Task task);
-
-        void Update(Task task);
+        void AddOrUpdate(Task task);
 
         List<Task> Get();
 
         List<Task> GetByDate(DateTime date);
 
         Task GetById(Guid id);
-
-        void AddOrUpdate(Task task);
 
         void Delete(Task task);
     }

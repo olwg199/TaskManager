@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskManager
+namespace TaskManager.Model
 {
     public class Task
     {
@@ -28,7 +28,7 @@ namespace TaskManager
 
         public bool IsActive { get; set; }
 
-        public ECategory Category { get; set; }
+        public Categories Category { get; set; }
 
         public string Description { get; set; }
     }

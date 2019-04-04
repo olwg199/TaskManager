@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TaskManager.Repositories;
+using TaskManager.Model;
 
 namespace TaskManager
 {
@@ -23,7 +24,7 @@ namespace TaskManager
         private void buttonAddTask_Click(object sender, EventArgs e)
         {
             _taskDetailsForm = new TaskDetailsForm(new Task(monthCalendarChouseDate.SelectionRange.Start),
-                _repository.Add);
+                _repository.AddOrUpdate);
             _taskDetailsForm.ShowDialog();
             
             UpdateTaskListView(_repository.GetByDate(monthCalendarChouseDate.SelectionStart));
@@ -42,10 +43,10 @@ namespace TaskManager
         private void dataGridViewTasks_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var taskViewForm = new TaskDetailsForm(_repository.GetById(_currentTask.Id),
-                _repository.Update);
+                _repository.AddOrUpdate);
             taskViewForm.ShowDialog();
             
-            UpdateTaskView(_repository.GetById(_currentTask.Id), e);
+            UpdateTaskGridRow(_repository.GetById(_currentTask.Id), e);
         }
 
         private void buttonDeleteTask_Click(object sender, EventArgs e)
@@ -71,11 +72,6 @@ namespace TaskManager
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //_repository.Save();
-        }
-
         private void UpdateTaskListView(List<Task> tasks)
         {
             _dataGridViewTasks.Rows.Clear();
@@ -85,18 +81,18 @@ namespace TaskManager
                 _dataGridViewTasks.Rows.Add(ts.Id,
                     ts.Name,
                     ts.Date.ToShortDateString(),
-                    EnumHelper<ECategory>.GetDisplayValue(ts.Category),
+                    EnumHelper<Categories>.GetDisplayValue(ts.Category),
                     ts.Description,
                     ts.IsActive);
             }
         }
 
-        private void UpdateTaskView(Task task, DataGridViewCellMouseEventArgs e)
+        private void UpdateTaskGridRow(Task task, DataGridViewCellMouseEventArgs e)
         {
             _dataGridViewTasks.Rows[e.RowIndex].SetValues(task.Id,
                 task.Name,
                 task.Date.ToShortDateString(),
-                EnumHelper<ECategory>.GetDisplayValue(task.Category),
+                EnumHelper<Categories>.GetDisplayValue(task.Category),
                 task.Description,
                 task.IsActive);
         }
