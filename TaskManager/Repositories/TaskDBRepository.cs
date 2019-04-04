@@ -111,9 +111,9 @@ namespace TaskManager.Repositories
                                 FROM
                                     Tasks
                                 WHERE
-                                    Tasks.Id = '{id}'";
-            
-            return ParseTasks(cmd).Find(t => t.Id == id);
+                                    Tasks.Id = '{id}'";           
+
+            return ParseTasks(cmd)[0];
         }
 
         public void AddOrUpdate(Task task)
